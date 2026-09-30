@@ -1,23 +1,17 @@
 {
-  "name": "three-fiber-example",
+  "name": "gitspore",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "@react-three/drei": "^10.7.9",
-    "@react-three/fiber": "^9.8.1",
-    "next": "16.3.7",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "three": "^0.186.1"
-  },
-  "devDependencies": {
-    "eslint": "^9",
-    "eslint-config-next": "16.3.7"
+    "dev:web": "npm run dev --workspace @gitspore/web",
+    "build:web": "npm run build --workspace @gitspore/web",
+    "lint:web": "npm run lint --workspace @gitspore/web",
+    "dev:api": "npm run dev --workspace @gitspore/api",
+    "build:api": "npm run build --workspace @gitspore/api",
+    "test:api": "npm run test --workspace @gitspore/api"
   }
 }

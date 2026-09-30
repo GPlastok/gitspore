@@ -3,15 +3,18 @@
 // React Three Fiber must be a Client Component.
 
 import { useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import type * as THREE from "three";
+import { Canvas, useFrame, type ThreeElements } from "@react-three/fiber";
 import { OrbitControls, Float, Text, ContactShadows } from "@react-three/drei";
 
 // A single 3D object. JSX tags like <mesh>, <boxGeometry> and
 // <meshStandardMaterial> map 1:1 to Three.js classes
 // (THREE.Mesh, THREE.BoxGeometry, THREE.MeshStandardMaterial).
-function SpinningBox(props) {
+// ThreeElements['mesh'] is the prop type of the <mesh> tag, so this
+// component accepts everything a <mesh> does (position, rotation, ...).
+function SpinningBox(props: ThreeElements["mesh"]) {
   // A ref gives direct access to the underlying THREE.Mesh object.
-  const meshRef = useRef();
+  const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
 
@@ -20,6 +23,9 @@ function SpinningBox(props) {
   // independent of the frame rate. Mutate the object directly here
   // instead of using state, which would re-render React 60x a second.
   useFrame((state, delta) => {
+    // The ref is typed as possibly null (it is unset before the first
+    // render commits), so narrow it before touching the object.
+    if (!meshRef.current) return;
     meshRef.current.rotation.x += delta * 0.5;
     meshRef.current.rotation.y += delta * 0.8;
   });

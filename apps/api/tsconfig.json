@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    // Nest 12 ships ESM-only. "nodenext" (not "node16") is what lets this
+    // CommonJS output require() those packages, as Node 22+ allows.
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "removeComments": true,
+    // Nest's DI reads constructor parameter types at runtime, which needs
+    // the legacy decorators plus emitted design-time metadata.
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "types": ["node", "jest"],
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strict": true,
+    // Injected properties are assigned by the container, not the constructor.
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
