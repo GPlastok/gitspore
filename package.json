@@ -7,11 +7,15 @@
     "packages/*"
   ],
   "scripts": {
+    "dev": "concurrently -n \"WEB,API\" -c \"cyan,magenta\" \"npm run dev:web\" \"npm run dev:api\"",
     "dev:web": "npm run dev --workspace @gitspore/web",
     "build:web": "npm run build --workspace @gitspore/web",
     "lint:web": "npm run lint --workspace @gitspore/web",
     "dev:api": "npm run dev --workspace @gitspore/api",
     "build:api": "npm run build --workspace @gitspore/api",
     "test:api": "npm run test --workspace @gitspore/api"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
   }
 }
