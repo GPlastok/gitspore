@@ -1,9 +1,6 @@
 // Status der CI/CD-Pipeline / Vitalität des Terrariums
 export type BiomeVitality =
-  | "flourishing"
-  | "stable"
-  | "parasite_infected"
-  | "critical";
+  "flourishing" | "stable" | "parasite_infected" | "critical";
 
 // Ein aktiver Branch / Worktree (dargestellt als Ranke / Ast)
 export interface BranchNode {
