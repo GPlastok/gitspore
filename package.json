@@ -16,6 +16,7 @@
     "lint": "npm run lint --workspaces --if-present && prettier --check .",
     "test": "npm run build:shared && npm run test --workspaces --if-present",
     "format": "prettier --write .",
+    "postinstall": "node scripts/fix-node-pty-permissions.mjs",
     "build:web": "npm run build --workspace @gitspore/web",
     "lint:web": "npm run lint --workspace @gitspore/web",
     "build:api": "npm run build --workspace @gitspore/api",

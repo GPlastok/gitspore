@@ -108,6 +108,21 @@ Die Freigabe ist auf die Version gepinnt (`node-pty@1.1.0`, npm-Standard).
 Nach einem Update von `node-pty` muss `npm approve-scripts node-pty` erneut
 laufen, sonst würde der Linux-Build blockiert, sobald npm die Regel durchsetzt.
 
+### macOS: Ausführungsrechte für node-pty `spawn-helper`
+
+- **Problem:** Auf macos-latest schlug der node-pty-Smoke-Test mit
+  `posix_spawnp failed` fehl.
+- **Ursache:** Die mitgelieferte Datei
+  `node_modules/node-pty/prebuilds/darwin-*/spawn-helper` hat nach der
+  npm-Installation keine Ausführungsrechte. node-pty startet jede Shell über
+  dieses Hilfsprogramm, ohne `+x` scheitert `posix_spawnp`.
+- **Lösung:** `scripts/fix-node-pty-permissions.mjs` (nur Node-Bordmittel) läuft
+  als `postinstall` im Root und setzt für jede gefundene `spawn-helper`-Datei
+  in den `darwin-*`-Ordnern die Rechte auf `0o755`. Auf anderen Plattformen
+  oder ohne node-pty beendet es sich still.
+- **Entfernen:** Sobald node-pty das Problem selbst behebt (Paket mit korrekten
+  Rechten), können Skript und `postinstall`-Eintrag wieder entfernt werden.
+
 ### Offen für GS-03: sauberes Beenden von PTY-Prozessen unter Windows
 
 `node-pty@1.1.0` beendet unter Windows (Standard-ConPTY) Shells nicht sauber.
