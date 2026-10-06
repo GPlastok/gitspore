@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import { PRODUCT_NAME } from "@gitspore/shared";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
@@ -14,7 +15,10 @@ async function bootstrap() {
   const port = Number(process.env.PORT ?? 3001);
   await app.listen(port);
 
-  Logger.log(`API daemon listening on http://localhost:${port}`, "Bootstrap");
+  Logger.log(
+    `${PRODUCT_NAME} API daemon listening on http://localhost:${port}`,
+    "Bootstrap",
+  );
 }
 
 // Nothing above can recover a failed boot, so surface it and exit non-zero
